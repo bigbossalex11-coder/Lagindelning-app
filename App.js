@@ -55,19 +55,19 @@ export default function App() {
       })
       .catch((err) => setError("kunde inte ta bort spelaren"));
   }
-   function addPlayer(name) {
-  fetch(`${API_URL}/players`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: 0, name: name, rank: "grön" })
-  })
-    .then(r => {
-    if (!r.ok) throw new Error();
-    return r.json();
-})
-    .then(created => setPlayers([...players, created]))
-    .catch(err => setError("kunde inte lägga till spelaren"));
-}
+  function addPlayer(name) {
+    fetch(`${API_URL}/players`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: 0, name: name, rank: "grön" }),
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then((created) => setPlayers([...players, created]))
+      .catch((err) => setError("kunde inte lägga till spelaren"));
+  }
   function makeTeams(teamCount, mode) {
     fetch(`${API_URL}/teams?teamCount=${teamCount}&mode=${mode}`)
       .then((r) => {
@@ -85,12 +85,19 @@ export default function App() {
       <AddPlayerForm onAdd={addPlayer} />
       {error && <Text>{error}</Text>}
       <View style={styles.controls}>
-        <TextInput
-          style={styles.input}
-          keyboardType="number-pad"
-          value={String(teamCount)}
-          onChangeText={(t) => setTeamCount(Number(t))}
-        />
+        <Pressable
+          style={styles.button}
+          onPress={() => setTeamCount(teamCount > 1 ? teamCount - 1 : 1)}
+        >
+          <Text>−</Text>
+        </Pressable>
+        <Text>{teamCount}</Text>
+        <Pressable
+          style={styles.button}
+          onPress={() => setTeamCount(teamCount + 1)}
+        >
+          <Text>+</Text>
+        </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => makeTeams(teamCount, "random")}
