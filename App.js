@@ -11,10 +11,10 @@ import {
 import { useEffect, useState } from "react";
 import PlayerCard from "./components/PlayerCard";
 import TeamList from "./components/TeamList";
+import AddPlayerForm from "./components/AddPlayerForm";
 
 const host = Constants.expoConfig?.hostUri?.split(":")[0];
 const API_URL = `http://${host}:5293`;
-console.log("API_URL:", API_URL);
 
 export default function App() {
   const [players, setPlayers] = useState([]);
@@ -55,6 +55,19 @@ export default function App() {
       })
       .catch((err) => setError("kunde inte ta bort spelaren"));
   }
+   function addPlayer(name) {
+  fetch(`${API_URL}/players`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: 0, name: name, rank: "grön" })
+  })
+    .then(r => {
+    if (!r.ok) throw new Error();
+    return r.json();
+})
+    .then(created => setPlayers([...players, created]))
+    .catch(err => setError("kunde inte lägga till spelaren"));
+}
   function makeTeams(teamCount, mode) {
     fetch(`${API_URL}/teams?teamCount=${teamCount}&mode=${mode}`)
       .then((r) => {
@@ -69,6 +82,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Lagindelning</Text>
+      <AddPlayerForm onAdd={addPlayer} />
       {error && <Text>{error}</Text>}
       <View style={styles.controls}>
         <TextInput
