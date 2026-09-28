@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react'
 
 
 const API_URL = "http://10.20.8.56:5293";
+const RANK_COLORS = {
+  grön: '#4caf50',
+  gul:  '#ffc107',
+  röd:  '#f44336',
+};
 
 export default function App() {
   const [players, setPlayers]= useState ([]);
@@ -31,6 +36,7 @@ export default function App() {
         renderItem={({ item }) => (
       <View style={styles.card}>
       <Text>{item.name}</Text>
+      <Text style={[styles.pill, { backgroundColor: RANK_COLORS[item.rank] }]}>{item.rank}</Text>
     </View>
 )}
       />
