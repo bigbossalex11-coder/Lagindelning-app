@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { useEffect, useState } from 'react'
 
 
-const API_URL = "http://10.20.9.130:5293";
+const API_URL = "http://10.20.8.56:5293";
 
 export default function App() {
   const [players, setPlayers]= useState ([]);
@@ -23,7 +23,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Lagindelning</Text>
-      {players.map(p => <Text key={p.id}>{p.name}</Text>)}
+      {error && <Text>{error}</Text> }
+      <FlatList
+       data={players}
+       keyExtractor={p => String(p.id)}
+       numColumns={2}
+       renderItem={({ item }) => <Text>{item.name}</Text>}
+      />
       <StatusBar style="auto" />
     </View>
   );
@@ -37,3 +43,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
