@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 import {
   StyleSheet,
   Text,
@@ -11,7 +12,9 @@ import { useEffect, useState } from "react";
 import PlayerCard from "./components/PlayerCard";
 import TeamList from "./components/TeamList";
 
-const API_URL = "http://10.20.8.56:5293";
+const host = Constants.expoConfig?.hostUri?.split(":")[0];
+const API_URL = `http://${host}:5293`;
+console.log("API_URL:", API_URL);
 
 export default function App() {
   const [players, setPlayers] = useState([]);
