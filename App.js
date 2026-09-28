@@ -23,12 +23,16 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Lagindelning</Text>
-      {error && <Text>{error}</Text> }
-      <FlatList
-       data={players}
-       keyExtractor={p => String(p.id)}
-       numColumns={2}
-       renderItem={({ item }) => <Text>{item.name}</Text>}
+        {error && <Text>{error}</Text> }
+        <FlatList
+        data={players}
+        keyExtractor={p => String(p.id)}
+        numColumns={2}
+        renderItem={({ item }) => (
+      <View style={styles.card}>
+      <Text>{item.name}</Text>
+    </View>
+)}
       />
       <StatusBar style="auto" />
     </View>
@@ -39,9 +43,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 12,  
   },
+
+    card: {
+    flex: 1,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#ddd',
+    maxWidth: '42%',
+},
+  
 });
 
 
