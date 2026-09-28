@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import PlayerCard from "./components/PlayerCard";
+import TeamList from "./components/TeamList";
 
 const API_URL = "http://10.20.8.56:5293";
 
@@ -90,7 +91,7 @@ export default function App() {
         </Pressable>
       </View>
       {teams.length > 0 ? (
-        <Text>Här kommer lagen</Text>
+        <TeamList teams={teams} />
       ) : (
         <FlatList
           data={players}
