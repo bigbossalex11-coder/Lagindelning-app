@@ -15,18 +15,31 @@ export default function App() {
   const [error, setError] = useState(null);
   
   useEffect(() => {
+    
   fetch(`${API_URL}/players`)
-  
- .then(r => {
+  .then(r => {
     if (!r.ok) throw new Error();
     return r.json();
   })
   .then(data => setPlayers(data))
   .catch(err => setError("kunde inte nå servern"));
-}, []);
+   }, []);
 
-  return (
-    <View style={styles.container}>
+  function changeRank(id, newRank) {
+    const current = players.find(p => p.id === id)
+    fetch(`${API_URL}/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: current.name, rank: newRank }) })
+    .catch(err => setError("kunde inte ändra spelaren"));
+    const nyLista = players.map(player => {
+    if (player.id === id) {
+    return { ...player, rank: newRank };
+}
+    return player;
+});
+    setPlayers(nyLista);
+  }
+   return (
+  
+  <View style={styles.container}>
       <Text>Lagindelning</Text>
         {error && <Text>{error}</Text> }
         <FlatList
@@ -34,9 +47,8 @@ export default function App() {
         keyExtractor={p => String(p.id)}
         numColumns={2}
         renderItem={({ item }) => (
-      <View style={styles.card}>
+      <View style={[styles.card, { backgroundColor: RANK_COLORS[item.rank] }]}>
       <Text>{item.name}</Text>
-      <Text style={[styles.pill, { backgroundColor: RANK_COLORS[item.rank] }]}>{item.rank}</Text>
     </View>
 )}
       />
