@@ -33,6 +33,14 @@ export default function App() {
 });
     setPlayers(nyLista);
   }
+  function deletePlayer(id) {
+    fetch(`${API_URL}/players/${id}`, { method: "DELETE" })
+    .then(r => {
+      if (!r.ok) throw new Error();
+      setPlayers(players.filter(p => p.id !== id));
+    })
+    .catch(err => setError("kunde inte ta bort spelaren"));
+}
    return (
   
   <View style={styles.container}>
@@ -42,7 +50,7 @@ export default function App() {
         data={players}
         keyExtractor={p => String(p.id)}
         numColumns={2}
-        renderItem={({ item }) => <PlayerCard player={item} onChangeRank={changeRank} />}
+        renderItem={({ item }) => <PlayerCard player={item} onChangeRank={changeRank} onDelete={deletePlayer} />}
       />
       <StatusBar style="auto" />
     </View>
