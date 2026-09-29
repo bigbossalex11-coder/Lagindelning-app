@@ -1,5 +1,6 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
 import { useState } from "react";
+import { COLORS } from "../theme";
 
 export default function AddPlayerForm(props) {
   const [name, setName] = useState("");
@@ -13,11 +14,12 @@ export default function AddPlayerForm(props) {
       <TextInput
         style={styles.input}
         placeholder="Ny spelare"
+        placeholderTextColor={COLORS.muted}
         value={name}
         onChangeText={setName}
       />
       <Pressable style={styles.button} onPress={handleAdd}>
-        <Text>Lägg till</Text>
+        <Text style={{ color: COLORS.text }}>Lägg till</Text>
       </Pressable>
     </View>
   );
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 8,
+    color: COLORS.text,
   },
   button: {
     borderWidth: 1,
