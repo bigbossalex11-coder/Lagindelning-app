@@ -19,7 +19,12 @@ export default function PlayerCard(props) {
           { backgroundColor: RANK[props.player.rank].bg},
         ]}
       >
-        <Text>{props.player.name}</Text>
+        <View style={styles.head}>
+  <Text style={[styles.name, { color: RANK[props.player.rank].text }]}>{props.player.name}</Text>
+  <Pressable onPress={confirmDelete}>
+    <Text style={{ color: RANK[props.player.rank].text }}>✕</Text>
+  </Pressable>
+</View>
         <View style={styles.dots}>
           <Pressable
             onPress={() => props.onChangeRank(props.player.id, "grön")}
@@ -33,9 +38,6 @@ export default function PlayerCard(props) {
             onPress={() => props.onChangeRank(props.player.id, "röd")}
             style={[styles.dot, { backgroundColor: RANK.röd.dot}]}
           />
-          <Pressable onPress={confirmDelete}>
-            <Text style={styles.delete}>Ta bort</Text>
-          </Pressable>
         </View>
       </View>
     );
@@ -51,6 +53,8 @@ export default function PlayerCard(props) {
       borderColor: "#ddd", 
       maxWidth: "42%",
     },
+      head: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+      name: { fontWeight: "600", fontSize: 15 },
     dots: {
       flexDirection: "row",
       gap: 8,
@@ -62,9 +66,5 @@ export default function PlayerCard(props) {
       borderRadius: 12,
       borderWidth: 2,
       borderColor: "#fff",
-    },
-    delete: {
-      marginTop: 8,
-      fontSize: 12,
     },
   });
