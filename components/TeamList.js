@@ -1,10 +1,5 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-
-const RANK_COLORS = {
-  grön: "#4caf50",
-  gul: "#ffc107",
-  röd: "#f44336",
-};
+import { RANK } from "../theme";
 
 export default function TeamList(props) {
   return (
@@ -17,7 +12,7 @@ export default function TeamList(props) {
               <View
                 style={[
                   styles.dot,
-                  { backgroundColor: RANK_COLORS[player.rank] },
+                  { backgroundColor: RANK[player.rank].dot },
                 ]}
               />
               <Text>{player.name}</Text>
