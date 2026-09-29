@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import PlayerCard from "./components/PlayerCard";
 import TeamList from "./components/TeamList";
 import AddPlayerForm from "./components/AddPlayerForm";
+import { COLORS } from "./theme";
 
 const host = Constants.expoConfig?.hostUri?.split(":")[0];
 const API_URL = `http://${host}:5293`;
@@ -81,7 +82,7 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
-      <Text>Lagindelning</Text>
+      <Text style={styles.title}>Lagindelning</Text>
       <AddPlayerForm onAdd={addPlayer} />
       {error && <Text>{error}</Text>}
       <View style={styles.controls}>
@@ -130,7 +131,7 @@ export default function App() {
           )}
         />
       )}
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 }
@@ -138,9 +139,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.bg,
     paddingTop: 40,
     paddingHorizontal: 12,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: COLORS.text,
+    marginBottom: 12,
   },
   controls: {
     flexDirection: "row",
