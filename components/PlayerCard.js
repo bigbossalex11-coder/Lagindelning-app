@@ -1,10 +1,5 @@
 import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
-
-const RANK_COLORS = {
-  grön: "#4caf50",
-  gul: "#ffc107",
-  röd: "#f44336",
-};
+import { RANK } from "../theme";
 
 export default function PlayerCard(props) {
   function confirmDelete() {
@@ -21,22 +16,22 @@ export default function PlayerCard(props) {
       <View
         style={[
           styles.card,
-          { backgroundColor: RANK_COLORS[props.player.rank] },
+          { backgroundColor: RANK[props.player.rank].bg},
         ]}
       >
         <Text>{props.player.name}</Text>
         <View style={styles.dots}>
           <Pressable
             onPress={() => props.onChangeRank(props.player.id, "grön")}
-            style={[styles.dot, { backgroundColor: RANK_COLORS.grön }]}
+            style={[styles.dot, { backgroundColor: RANK.grön.dot}]}
           />
           <Pressable
             onPress={() => props.onChangeRank(props.player.id, "gul")}
-            style={[styles.dot, { backgroundColor: RANK_COLORS.gul }]}
+            style={[styles.dot, { backgroundColor: RANK.gul.dot}]}
           />
           <Pressable
             onPress={() => props.onChangeRank(props.player.id, "röd")}
-            style={[styles.dot, { backgroundColor: RANK_COLORS.röd }]}
+            style={[styles.dot, { backgroundColor: RANK.röd.dot}]}
           />
           <Pressable onPress={confirmDelete}>
             <Text style={styles.delete}>Ta bort</Text>
