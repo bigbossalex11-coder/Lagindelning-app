@@ -84,35 +84,35 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.title}>Lagindelning</Text>
       <AddPlayerForm onAdd={addPlayer} />
-      {error && <Text>{error}</Text>}
+      {error && <Text style={styles.light}>{error}</Text>}
       <View style={styles.controls}>
         <Pressable
           style={styles.button}
           onPress={() => setTeamCount(teamCount > 1 ? teamCount - 1 : 1)}
         >
-          <Text>−</Text>
+          <Text style={styles.light}>−</Text>
         </Pressable>
-        <Text>{teamCount}</Text>
+        <Text style={styles.light}>{teamCount}</Text>
         <Pressable
           style={styles.button}
           onPress={() => setTeamCount(teamCount + 1)}
         >
-          <Text>+</Text>
+          <Text style={styles.light}>+</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => makeTeams(teamCount, "random")}
         >
-          <Text>Slumpa</Text>
+          <Text style={styles.light}>Slumpa</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => makeTeams(teamCount, "level")}
         >
-          <Text>Nivå</Text>
+          <Text style={styles.light}>Nivå</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => setTeams([])}>
-          <Text>Rensa</Text>
+          <Text style={styles.light}>Rensa</Text>
         </Pressable>
       </View>
       {teams.length > 0 ? (
@@ -137,6 +137,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  light: { color: COLORS.text },
   container: {
     flex: 1,
     backgroundColor: COLORS.bg,
@@ -150,11 +151,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   controls: {
-    flexDirection: "row",
-    gap: 8,
-    marginVertical: 12,
-    alignItems: "center",
-  },
+  flexDirection: "row",
+  gap: 8,
+  marginVertical: 12,
+  alignItems: "center",
+  backgroundColor: COLORS.panel,
+  borderRadius: 12,
+  padding: 8,                      
+},
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
